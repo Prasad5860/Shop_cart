@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <title>Shopping Cart</title>
+  <link rel="stylesheet" href="home.css">
+</head>
+<body>
+  <header>
+    <h1>Shopping Cart</h1>
+    <nav>
+      <button onclick="location.href='#'">Home</button>
+      <button onclick="location.href='#'">Cart</button>
+      <button onclick="location.href='#'">Logout</button>
+    </nav>
+  </header>
+
+  <select id="category-select">
+    <option value="all">All Categories</option>
+    <option value="shirts">Shirts</option>
+    <option value="watches">Watches</option>
+    <!-- Add more categories as needed -->
+  </select>
+<div class="Product_list">
+    <!-- <div class="product">
+        <div class="product-info">
+            <img src="formal_shirt_image.jpg" alt="formal_shirt_image">
+          <h2>Formal Shirt(US)</h2>
+          <p>Price: 2000</p>
+          <button onclick="addToCart('Product 1', 10)">Add to Cart</button>
+        </div>
+      </div>
+      
+      <div class="product">
+        <div class="product-info">
+            <img src="casual_shirt_image.jpg" alt="casual_shirt_image">
+          <h2>Product 2</h2>
+          <p>Price: $20</p>
+          <button onclick="addToCart('Product 2', 20)">Add to Cart</button>
+        </div>
+      </div>
+      
+      <div class="product">
+        <div class="product-info">
+            <img src="smart_watch_image.jpg" alt="smart_watch_image">
+          <h2>Product 3</h2>
+          <p>Price: $30</p>
+          <button onclick="addToCart('Product 3', 30)">Add to Cart</button>
+        </div>
+      </div> -->
+</div>
+  
+
+
+  <script>
+    $(document).ready(function() {
+      $.ajax({
+        url: "http://localhost:8080/Ecart_APP/allProducts",
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+          $.each(data, function(index, product) {
+            console.log( product.productName);
+            var productDiv = '<div class="product">' +
+                                '<div class="product-info">' +
+                                    '<img src="' + product.productImageId + '" alt="' + product.productName + '">' +
+                                  '<h2>' + product.productName + '</h2>' +
+                                  '<p>Price: $' + product.productPrice + '</p>' +
+                                  '<button onclick="addToCart(\'' + product.productName + '\', ' + product.productPrice + ')">Add to Cart</button>' +
+                                '</div>' +
+                              '</div>';
+            $('.Product_list').append(productDiv);
+          });
+        },
+        error: function(xhr, status, error) {
+          console.error("Error fetching products: " + error);
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
